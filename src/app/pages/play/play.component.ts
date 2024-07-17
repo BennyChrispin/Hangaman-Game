@@ -2,15 +2,43 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { CategoryWord } from '../../models/gamemodel';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-play',
   templateUrl: './play.component.html',
   styleUrls: ['./play.component.css'],
+  animations: [
+    trigger('slideIn', [
+      state(
+        'void',
+        style({
+          transform: 'translateX(-100%)',
+          opacity: 0,
+        })
+      ),
+      state(
+        '*',
+        style({
+          transform: 'translateX(0)',
+          opacity: 1,
+        })
+      ),
+      transition('void => *', animate('0.5s ease-in-out')),
+    ]),
+  ],
 })
 export class PlayComponent implements OnInit {
   gameCategory: string | null = '';
-  keyboardChars: string[] = 'abcdefghijklmnopqrstuvwxyz'.toLocaleUpperCase().split('');
+  keyboardChars: string[] = 'abcdefghijklmnopqrstuvwxyz'
+    .toLocaleUpperCase()
+    .split('');
   randomItem: CategoryWord | undefined;
   randomItemWord: string[] = [];
   hiddenIndices: boolean[] = [];
@@ -50,8 +78,12 @@ export class PlayComponent implements OnInit {
       (item) => {
         this.randomItem = item;
         if (this.randomItem) {
-          this.randomItemWord = this.randomItem.name.toLocaleUpperCase().split('');
-          this.hiddenIndices = this.getHiddenIndices(this.randomItemWord.length);
+          this.randomItemWord = this.randomItem.name
+            .toLocaleUpperCase()
+            .split('');
+          this.hiddenIndices = this.getHiddenIndices(
+            this.randomItemWord.length
+          );
           // this.maxWrongGuesses = this.hiddenIndices.filter((hidden) => hidden).length;
           this.maxWrongGuesses = 8;
         }
@@ -82,20 +114,23 @@ export class PlayComponent implements OnInit {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
-  playAgain(){
-      this.randomItem = undefined;
-      this.randomItemWord = [];
-      this.hiddenIndices = [];
-      this.keyStates = this.keyboardChars.map((char) => ({ char, color: 'bg-white' }));
-      this.hasWon = false;
-      this.hasLost = false;
-      this.wrongGuessCount = 0;
-      this.maxWrongGuesses = 8;
+  playAgain() {
+    this.randomItem = undefined;
+    this.randomItemWord = [];
+    this.hiddenIndices = [];
+    this.keyStates = this.keyboardChars.map((char) => ({
+      char,
+      color: 'bg-white',
+    }));
+    this.hasWon = false;
+    this.hasLost = false;
+    this.wrongGuessCount = 0;
+    this.maxWrongGuesses = 8;
 
-      // Fetch a new random item based on the game category
-      if (this.gameCategory) {
-        this.fetchRandomItem(this.gameCategory);
-      }
+    // Fetch a new random item based on the game category
+    if (this.gameCategory) {
+      this.fetchRandomItem(this.gameCategory);
+    }
   }
 
   restart() {
@@ -107,10 +142,12 @@ export class PlayComponent implements OnInit {
   }
 
   pressChar(char: string) {
-    console.log(char)
-    const hiddenChars = this.randomItemWord.filter((_, index) => this.hiddenIndices[index]);
+    console.log(char);
+    const hiddenChars = this.randomItemWord.filter(
+      (_, index) => this.hiddenIndices[index]
+    );
     const isCorrectGuess = hiddenChars.includes(char);
-    console.log(hiddenChars)
+    console.log(hiddenChars);
 
     this.keyStates = this.keyStates.map((keyState) => {
       if (keyState.char === char) {
@@ -148,7 +185,8 @@ export class PlayComponent implements OnInit {
   }
 
   getWidth(): string {
-    const percentage = 100 - (this.wrongGuessCount / this.maxWrongGuesses) * 100;
+    const percentage =
+      100 - (this.wrongGuessCount / this.maxWrongGuesses) * 100;
     return `${percentage}%`;
   }
 }
