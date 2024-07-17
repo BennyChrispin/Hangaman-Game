@@ -48,7 +48,6 @@ export class StartComponent {
           this.categoryNames = Object.keys(this.categoryData.categories);
           console.log(this.categoryNames);
         }
-        // console.log("Name:", this.categoryNames)
       },
       (error) => {
         console.error('Error fetching category data: ', error);

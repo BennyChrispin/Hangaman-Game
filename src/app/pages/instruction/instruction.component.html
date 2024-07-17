@@ -1,8 +1,7 @@
 <div
-  class="bg-[#1c115279] w-screen h-screen flex justify-center items-center"
-  @slideIn
+  class="bg-[#1c115279] max-w-full min-h-screen flex flex-col lg:flex-row justify-center items-center"
 >
-  <div class="w-[90vw] md:w-[70vw] h-[40vh] flex flex-col gap-6 -mt-48">
+  <div class="w-full lg:w-auto px-8 py-6 lg:py-12">
     <div class="w-full flex p-4 justify-between items-center">
       <button
         (click)="gotoHome()"
@@ -10,15 +9,17 @@
       >
         <img src="/assets/images/icon-back.svg" class="w-6" />
       </button>
-      <img src="/assets/images/How.svg" class="w-60" />
-      <p></p>
+      <img src="/assets/images/How.svg" class="w-40 lg:w-60" />
+      <p class="hidden lg:block"></p>
     </div>
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8 w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8 w-full mt-8">
       <div
         *ngFor="let instruction of instructions"
-        class="bg-white flex lg:flex-col text-center justify-center items-center w-full rounded-[40px] p-8 lg:py-16 gap-12"
+        class="bg-white flex flex-col lg:flex-col text-center justify-center items-center w-full rounded-3xl p-8 lg:py-16 gap-12"
       >
-        <h1 class="text-8xl font-medium text-[#2463FF] hidden md:block">
+        <h1
+          class="text-5xl lg:text-8xl font-medium text-[#2463FF] hidden md:block"
+        >
           {{ instruction.number }}
         </h1>
         <div class="w-full text-left md:text-center">
@@ -30,7 +31,7 @@
               {{ instruction.title }}
             </h3>
           </div>
-          <p class="text-xl lg:text-2xl text-[#887DC0]">
+          <p class="text-lg lg:text-2xl text-[#887DC0]">
             {{ instruction.description }}
           </p>
         </div>
