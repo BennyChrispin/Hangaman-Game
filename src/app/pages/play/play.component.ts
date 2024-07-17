@@ -19,14 +19,14 @@ import {
       state(
         'void',
         style({
-          transform: 'translateX(-100%)',
+          transform: 'translateY(-100%)',
           opacity: 0,
         })
       ),
       state(
         '*',
         style({
-          transform: 'translateX(0)',
+          transform: 'translateY(0)',
           opacity: 1,
         })
       ),
@@ -84,7 +84,7 @@ export class PlayComponent implements OnInit {
           this.hiddenIndices = this.getHiddenIndices(
             this.randomItemWord.length
           );
-          // this.maxWrongGuesses = this.hiddenIndices.filter((hidden) => hidden).length;
+
           this.maxWrongGuesses = 8;
         }
       },
@@ -127,7 +127,6 @@ export class PlayComponent implements OnInit {
     this.wrongGuessCount = 0;
     this.maxWrongGuesses = 8;
 
-    // Fetch a new random item based on the game category
     if (this.gameCategory) {
       this.fetchRandomItem(this.gameCategory);
     }
