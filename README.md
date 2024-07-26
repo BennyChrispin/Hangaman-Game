@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 # Live Project
 
-Here is the live link to this Project : [Hangman Game](https://amalihangman.netlify.app/)
+Here is the live link to this Project : [Hangman Game](https://hangaman-game-dzpo.vercel.app/)
 
 ## Development server
 
